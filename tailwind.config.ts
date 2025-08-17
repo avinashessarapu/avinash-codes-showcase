@@ -57,6 +57,14 @@ export default {
 					body: 'hsl(var(--text-body))',
 					light: 'hsl(var(--text-light))'
 				},
+				neon: {
+					cyan: 'hsl(var(--neon-cyan))',
+					pink: 'hsl(var(--neon-pink))',
+					purple: 'hsl(var(--neon-purple))',
+					green: 'hsl(var(--neon-green))',
+					blue: 'hsl(var(--neon-blue))',
+					orange: 'hsl(var(--neon-orange))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -169,6 +177,22 @@ export default {
 					'51%, 100%': {
 						borderColor: 'hsl(var(--accent))'
 					}
+				},
+				'neon-glow': {
+					'0%, 100%': {
+						boxShadow: '0 0 20px hsl(var(--neon-cyan)), 0 0 40px hsl(var(--neon-cyan)), 0 0 60px hsl(var(--neon-cyan))'
+					},
+					'50%': {
+						boxShadow: '0 0 30px hsl(var(--neon-cyan)), 0 0 60px hsl(var(--neon-cyan)), 0 0 80px hsl(var(--neon-cyan))'
+					}
+				},
+				'neon-text': {
+					'0%, 100%': {
+						textShadow: '0 0 10px hsl(var(--neon-cyan)), 0 0 20px hsl(var(--neon-cyan)), 0 0 30px hsl(var(--neon-cyan))'
+					},
+					'50%': {
+						textShadow: '0 0 20px hsl(var(--neon-cyan)), 0 0 30px hsl(var(--neon-cyan)), 0 0 40px hsl(var(--neon-cyan))'
+					}
 				}
 			},
 			animation: {
@@ -181,7 +205,9 @@ export default {
 				'float': 'float 3s ease-in-out infinite',
 				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
 				'typing': 'typing 3s steps(20) 1s both',
-				'blink': 'blink 1s infinite'
+				'blink': 'blink 1s infinite',
+				'neon-glow': 'neon-glow 2s ease-in-out infinite',
+				'neon-text': 'neon-text 2s ease-in-out infinite'
 			}
 		}
 	},

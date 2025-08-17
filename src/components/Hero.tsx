@@ -30,9 +30,20 @@ const Hero = () => {
   );
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-secondary/30">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-background via-background to-secondary/30 dark:from-background dark:via-background dark:to-primary/5">
       {/* Particle Background */}
       <ParticleBackground />
+      
+      {/* Neon Grid Background for Dark Mode */}
+      <div className="absolute inset-0 opacity-0 dark:opacity-20 pointer-events-none">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `
+            linear-gradient(hsl(var(--neon-cyan) / 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, hsl(var(--neon-cyan) / 0.3) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
+        }}></div>
+      </div>
       
       {/* Floating Icons */}
       <FloatingIcon icon={Code} delay={0} position="top-20 left-20" />
@@ -47,9 +58,9 @@ const Hero = () => {
             <div className="mb-6">
               {/* Greeting with staggered animation */}
               <div className="mb-4 overflow-hidden">
-                <h1 className={`text-4xl md:text-6xl font-bold text-text-heading leading-tight transition-all duration-700 delay-300 ${isVisible ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}>
+                 <h1 className={`text-4xl md:text-6xl font-bold text-text-heading leading-tight transition-all duration-700 delay-300 ${isVisible ? 'animate-fade-in' : 'opacity-0 translate-y-8'}`}>
                   Hi, I'm{" "}
-                  <span className="bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-pulse-glow">
+                  <span className="bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent animate-pulse-glow dark:animate-neon-text dark:text-accent">
                     Avinash
                   </span>
                 </h1>
@@ -128,7 +139,7 @@ const Hero = () => {
               <div className="absolute -inset-4 bg-gradient-to-r from-accent/30 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
               {/* Main image container */}
-              <div className="relative w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden shadow-strong border-4 border-background transform group-hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_50px_rgba(59,130,246,0.3)]">
+              <div className="relative w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden shadow-strong border-4 border-background dark:border-accent/50 transform group-hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_50px_rgba(59,130,246,0.3)] dark:group-hover:animate-neon-glow">
                 <img
                   src="/lovable-uploads/1e200acf-7100-4abd-9a38-0f6767d8605e.png"
                   alt="Avinash Essarapu - Application Developer"

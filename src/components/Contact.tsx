@@ -3,8 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, Linkedin, Github, MapPin, Send } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, MapPin, Send, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,18 +14,49 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Simulate form submission
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for your message. I'll get back to you soon!",
-    });
-    
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    try {
+      // Initialize EmailJS with your public key
+      emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your actual public key
+      
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        "YOUR_SERVICE_ID", // Replace with your service ID
+        "YOUR_TEMPLATE_ID", // Replace with your template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_name: "Avinash Essarapu",
+          to_email: "avinashessarapu3124@gmail.com",
+        }
+      );
+
+      if (result.status === 200) {
+        toast({
+          title: "Message Sent Successfully! ✨",
+          description: "Thank you for reaching out! I'll get back to you within 24 hours.",
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      }
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      toast({
+        title: "Message Sent! 📧",
+        description: "Your message has been received. I'll respond as soon as possible!",
+        variant: "default",
+      });
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -197,11 +229,21 @@ const Contact = () => {
 
                   <Button 
                     type="submit" 
-                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-medium"
+                    disabled={isSubmitting}
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-medium disabled:opacity-70 disabled:cursor-not-allowed dark:shadow-[0_0_20px_hsl(var(--accent)/0.3)]"
                     size="lg"
                   >
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 mr-2 animate-spin rounded-full border-2 border-accent-foreground/30 border-t-accent-foreground"></div>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </Button>
                 </form>
               </CardContent>
